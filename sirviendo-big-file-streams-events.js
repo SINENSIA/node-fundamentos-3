@@ -1,5 +1,6 @@
 
 const fs = require("fs");
+var stream = require('stream');
 
 const server = require("http").createServer();
 
@@ -16,10 +17,10 @@ server.on("request", (req, res) => {
     .on('resume', () => console.log(`La lectura se ha reanudado`))
     
 
-    const outStream = new Writable({
+    const outStream = new stream.Writable({
         write(chunk, encoding, callback) {
           res.end(chunk.toString());
-          callback();
+          next();
         }
       });
   
